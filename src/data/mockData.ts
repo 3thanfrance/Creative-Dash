@@ -70,10 +70,10 @@ export const completedCampaigns: Campaign[] = [
 ];
 
 export const bountyBoard: Campaign[] = [
-  { id: "b1", clientName: "Stripe", contactName: "New Integration Campaign", status: "backlog", priority: "low", difficulty: 2, reviewDate: "2026-04-25", avatars: [] },
-  { id: "b2", clientName: "Notion", contactName: "Q2 Brand Push", status: "backlog", priority: "low", difficulty: 1, reviewDate: "2026-04-28", avatars: [] },
-  { id: "b3", clientName: "Linear", contactName: "Product Launch Support", status: "backlog", priority: "medium", difficulty: 3, reviewDate: "2026-04-15", avatars: [] },
-  { id: "b4", clientName: "Vercel", contactName: "Developer Outreach", status: "backlog", priority: "low", difficulty: 1, reviewDate: "2026-04-30", avatars: [] },
+  { id: "b1", clientName: "Stripe", contactName: "Rachel Kim (VP Marketing)", status: "backlog", priority: "low", difficulty: 2, reviewDate: "2026-04-25", avatars: [] },
+  { id: "b2", clientName: "Notion", contactName: "Tyler Nguyen (Head of Growth)", status: "backlog", priority: "low", difficulty: 1, reviewDate: "2026-04-28", avatars: [] },
+  { id: "b3", clientName: "Linear", contactName: "Sam Patel (CMO)", status: "backlog", priority: "medium", difficulty: 3, reviewDate: "2026-04-15", avatars: [] },
+  { id: "b4", clientName: "Vercel", contactName: "Maya Torres (Brand Lead)", status: "backlog", priority: "low", difficulty: 1, reviewDate: "2026-04-30", avatars: [] },
 ];
 
 export const clients: ClientDetails[] = [

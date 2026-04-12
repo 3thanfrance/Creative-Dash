@@ -1,4 +1,4 @@
-import { completedCampaigns, clients } from "@/data/mockData";
+import { completedCampaigns, campaigns, bountyBoard, clients } from "@/data/mockData";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { TrendingUp, Target, Clock, DollarSign, Star, CheckCircle } from "lucide-react";
 
@@ -13,15 +13,12 @@ const COLORS = [
 ];
 
 export function PersonalAnalytics() {
-  const myCampaigns = completedCampaigns; // all assigned to "sarah"
-
+  const myCampaigns = completedCampaigns;
   const totalCompleted = myCampaigns.length;
 
-  // Conversion rate: campaigns with score >= 7 / total
   const converted = myCampaigns.filter((c) => (c.score ?? 0) >= 7).length;
   const conversionRate = totalCompleted > 0 ? Math.round((converted / totalCompleted) * 100) : 0;
 
-  // Average spend: use client data to estimate
   const avgSpend = (() => {
     const clientNames = [...new Set(myCampaigns.map((c) => c.clientName))];
     const relevantClients = clients.filter((cl) => clientNames.includes(cl.name));
@@ -32,20 +29,17 @@ export function PersonalAnalytics() {
     return Math.round(totalAvg / relevantClients.length);
   })();
 
-  // Acceptance rate from clients I work with
   const myClientNames = [...new Set(myCampaigns.map((c) => c.clientName))];
   const myClients = clients.filter((cl) => myClientNames.includes(cl.name));
   const acceptanceRate = myClients.length > 0
     ? Math.round(myClients.reduce((s, c) => s + c.acceptanceRate, 0) / myClients.length)
     : 0;
 
-  // Average score
   const scored = myCampaigns.filter((c) => c.score != null);
   const avgScore = scored.length > 0
     ? (scored.reduce((s, c) => s + (c.score ?? 0), 0) / scored.length).toFixed(1)
     : "N/A";
 
-  // Average campaign time in days
   const withDates = myCampaigns.filter((c) => c.startDate && c.completedDate);
   const avgDays = withDates.length > 0
     ? Math.round(
@@ -57,7 +51,6 @@ export function PersonalAnalytics() {
       )
     : 0;
 
-  // Pie chart: campaigns per client
   const clientCounts: Record<string, number> = {};
   myCampaigns.forEach((c) => {
     clientCounts[c.clientName] = (clientCounts[c.clientName] || 0) + 1;
@@ -73,59 +66,113 @@ export function PersonalAnalytics() {
     { icon: Clock, label: "Avg Campaign Time", value: `${avgDays} days`, color: "text-priority-medium" },
   ];
 
+  // Active campaigns assigned to me
+  const myActive = campaigns.filter((c) => c.assignedTo === "sarah");
+  const availableBounties = bountyBoard;
+
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
-      <h2 className="text-sm font-semibold text-foreground mb-3">My Performance</h2>
-      <div className="grid grid-cols-3 gap-2 mb-4">
+    <div className="space-y-4">
+      <h2 className="text-lg font-semibold text-foreground">My Performance</h2>
+
+      {/* Stats grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {stats.map((s) => (
-          <div key={s.label} className="bg-secondary/50 rounded-lg p-2.5 text-center">
-            <s.icon className={`w-4 h-4 mx-auto mb-1 ${s.color}`} />
-            <p className="text-lg font-bold text-foreground leading-tight">{s.value}</p>
-            <p className="text-[9px] text-muted-foreground mt-0.5">{s.label}</p>
+          <div key={s.label} className="rounded-xl border border-border bg-card p-3 text-center">
+            <s.icon className={`w-5 h-5 mx-auto mb-1.5 ${s.color}`} />
+            <p className="text-xl font-bold text-foreground leading-tight">{s.value}</p>
+            <p className="text-[10px] text-muted-foreground mt-1">{s.label}</p>
           </div>
         ))}
       </div>
-      <div>
-        <h3 className="text-xs font-semibold text-muted-foreground mb-2">Client Distribution</h3>
-        <div className="flex items-center gap-4">
-          <div className="w-[120px] h-[120px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={pieData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={30}
-                  outerRadius={55}
-                  paddingAngle={2}
-                  dataKey="value"
-                  stroke="none"
-                >
-                  {pieData.map((_, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    background: "hsl(var(--card))",
-                    border: "1px solid hsl(var(--border))",
-                    borderRadius: "8px",
-                    fontSize: "11px",
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* Client Distribution */}
+        <div className="rounded-xl border border-border bg-card p-4">
+          <h3 className="text-sm font-semibold text-foreground mb-3">Client Distribution</h3>
+          <div className="flex items-center gap-4">
+            <div className="w-[140px] h-[140px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={35}
+                    outerRadius={60}
+                    paddingAngle={2}
+                    dataKey="value"
+                    stroke="none"
+                  >
+                    {pieData.map((_, index) => (
+                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    contentStyle={{
+                      background: "hsl(var(--card))",
+                      border: "1px solid hsl(var(--border))",
+                      borderRadius: "8px",
+                      fontSize: "11px",
+                    }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="flex-1 space-y-1.5">
+              {pieData.map((entry, i) => (
+                <div key={entry.name} className="flex items-center gap-2">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full shrink-0"
+                    style={{ backgroundColor: COLORS[i % COLORS.length] }}
+                  />
+                  <span className="text-xs text-foreground">{entry.name}</span>
+                  <span className="text-xs text-muted-foreground ml-auto font-medium">
+                    {Math.round((entry.value / totalCompleted) * 100)}%
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="flex-1 space-y-1">
-            {pieData.map((entry, i) => (
-              <div key={entry.name} className="flex items-center gap-2">
-                <span
-                  className="w-2.5 h-2.5 rounded-full shrink-0"
-                  style={{ backgroundColor: COLORS[i % COLORS.length] }}
-                />
-                <span className="text-[10px] text-foreground">{entry.name}</span>
-                <span className="text-[10px] text-muted-foreground ml-auto">
-                  {Math.round((entry.value / totalCompleted) * 100)}%
+        </div>
+
+        {/* My Active Campaigns */}
+        <div className="rounded-xl border border-border bg-card p-4">
+          <h3 className="text-sm font-semibold text-foreground mb-3">
+            My Active <span className="text-muted-foreground font-normal">({myActive.length})</span>
+          </h3>
+          <div className="space-y-2">
+            {myActive.map((c) => (
+              <div key={c.id} className="flex items-center justify-between bg-secondary/50 rounded-lg px-3 py-2">
+                <div>
+                  <p className="text-xs font-semibold text-foreground">{c.clientName}</p>
+                  <p className="text-[10px] text-muted-foreground">{c.contactName}</p>
+                </div>
+                <div className="flex items-center gap-1">
+                  {[1, 2, 3].map((i) => (
+                    <span key={i} className={`w-1.5 h-1.5 rounded-full ${i <= c.difficulty ? "bg-foreground" : "bg-border"}`} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Available Bounties */}
+        <div className="rounded-xl border border-dashed border-primary/30 bg-card p-4">
+          <h3 className="text-sm font-semibold text-foreground mb-3">
+            Available Bounties <span className="text-muted-foreground font-normal">({availableBounties.length})</span>
+          </h3>
+          <div className="space-y-2">
+            {availableBounties.map((c) => (
+              <div key={c.id} className="flex items-center justify-between bg-accent/30 rounded-lg px-3 py-2 cursor-pointer hover:bg-accent/60 transition-colors">
+                <div>
+                  <p className="text-xs font-semibold text-foreground">{c.contactName.split(" - ")[0]}</p>
+                  <p className="text-[10px] text-muted-foreground">{c.clientName}</p>
+                </div>
+                <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded ${
+                  c.priority === "medium" ? "bg-priority-medium text-foreground" : "bg-priority-low text-primary-foreground"
+                }`}>
+                  D{c.difficulty}
                 </span>
               </div>
             ))}

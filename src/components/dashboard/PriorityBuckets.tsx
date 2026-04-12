@@ -55,46 +55,48 @@ export function PriorityBuckets() {
     : campaigns.filter((c) => c.assignedTo === selectedMember);
 
   return (
-    <div>
-      <div className="flex items-center gap-3 mb-2 flex-wrap">
-        <h2 className="text-sm font-semibold text-foreground">Priority Queue</h2>
-        <OpsWorkload />
-        <div className="ml-auto">
-          <Select value={selectedMember} onValueChange={setSelectedMember}>
-            <SelectTrigger className="w-[150px] h-8 text-xs bg-card">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {teamMembers.map((m) => (
-                <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-      <div className="grid grid-cols-3 gap-2">
-        {buckets.map((bucket) => {
-          const items = filtered.filter((c) => c.priority === bucket.key);
-          return (
-            <div key={bucket.key} className={`rounded-lg border ${bucket.border} bg-secondary/30 p-2`}>
-              <div className="flex items-center gap-1.5 mb-2">
-                <span className={`w-2 h-2 rounded-full ${bucket.dot}`} />
-                <span className="text-[10px] font-bold uppercase tracking-wide text-foreground">
-                  {bucket.label}
-                </span>
-                <span className="text-[10px] text-muted-foreground ml-auto">{items.length}</span>
-              </div>
-              <div className="space-y-1.5">
-                {items.length === 0 && (
-                  <p className="text-[10px] text-muted-foreground italic">Empty</p>
-                )}
-                {items.map((c) => (
-                  <CampaignCard key={c.id} campaign={c} />
+    <div className="space-y-3">
+      <OpsWorkload />
+      <div>
+        <div className="flex items-center gap-3 mb-2">
+          <h2 className="text-sm font-semibold text-foreground">Priority Queue</h2>
+          <div className="ml-auto">
+            <Select value={selectedMember} onValueChange={setSelectedMember}>
+              <SelectTrigger className="w-[150px] h-8 text-xs bg-card">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {teamMembers.map((m) => (
+                  <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>
                 ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          {buckets.map((bucket) => {
+            const items = filtered.filter((c) => c.priority === bucket.key);
+            return (
+              <div key={bucket.key} className={`rounded-lg border ${bucket.border} bg-secondary/30 p-2`}>
+                <div className="flex items-center gap-1.5 mb-2">
+                  <span className={`w-2 h-2 rounded-full ${bucket.dot}`} />
+                  <span className="text-[10px] font-bold uppercase tracking-wide text-foreground">
+                    {bucket.label}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground ml-auto">{items.length}</span>
+                </div>
+                <div className="space-y-1.5">
+                  {items.length === 0 && (
+                    <p className="text-[10px] text-muted-foreground italic">Empty</p>
+                  )}
+                  {items.map((c) => (
+                    <CampaignCard key={c.id} campaign={c} />
+                  ))}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

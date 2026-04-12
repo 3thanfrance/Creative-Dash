@@ -11,6 +11,9 @@ export function ClientsView() {
           const avgSpend = client.campaignsTotal > 0
             ? Math.round(client.totalContractValue / client.campaignsTotal)
             : 0;
+          const conversionRate = client.campaignsTotal > 0
+            ? Math.round((client.campaignsCompleted / client.campaignsTotal) * 100)
+            : 0;
           return (
             <div key={client.id} className="rounded-xl border border-border bg-card p-4">
               <div className="flex items-start justify-between mb-3">
@@ -29,7 +32,7 @@ export function ClientsView() {
                   </p>
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-4 gap-4">
                 <div>
                   <div className="flex justify-between text-xs mb-1">
                     <span className="text-muted-foreground">Acceptance Rate</span>
@@ -48,6 +51,13 @@ export function ClientsView() {
                     <span className="font-semibold text-foreground">{completionPct}%</span>
                   </div>
                   <Progress value={completionPct} className="h-2" />
+                </div>
+                <div>
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="text-muted-foreground">Conversion</span>
+                    <span className="font-semibold text-primary">{conversionRate}%</span>
+                  </div>
+                  <Progress value={conversionRate} className="h-2" />
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground mb-1">Avg Spend/Campaign</div>
