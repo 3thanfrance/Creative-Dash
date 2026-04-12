@@ -1,6 +1,6 @@
-import { completedCampaigns, campaigns, bountyBoard, clients } from "@/data/mockData";
+import { completedCampaigns, campaigns, bountyBoard, finalQACampaigns, clients } from "@/data/mockData";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import { TrendingUp, Target, Clock, DollarSign, Star, CheckCircle } from "lucide-react";
+import { TrendingUp, Target, Clock, DollarSign, Star, CheckCircle, ClipboardCheck, Calendar } from "lucide-react";
 
 const COLORS = [
   "hsl(270, 80%, 55%)",

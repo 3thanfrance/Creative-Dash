@@ -86,6 +86,13 @@ export const completedCampaigns: Campaign[] = [
   { id: "h8", referenceCode: "MGS-10", clientName: "MagicSchool", contactName: "App Launch", status: "review", priority: "high", difficulty: 3, assignedTo: "sarah", reviewDate: "2026-03-28", avatars: ["SJ"], completedDate: "2026-03-30", score: 8, startDate: "2026-03-10" },
 ];
 
+// Campaigns submitted for final QA (assigned to "sarah", awaiting acceptance)
+export const finalQACampaigns: Campaign[] = [
+  { id: "qa1", referenceCode: "MGS-11", clientName: "MagicSchool", contactName: "Holiday Promo Video", status: "final-check", priority: "medium", difficulty: 2, assignedTo: "sarah", reviewDate: "2026-04-12", deadlineDate: "2026-04-16", avatars: ["SJ"], startDate: "2026-03-25", score: 8 },
+  { id: "qa2", referenceCode: "FRM-06", clientName: "Fermat", contactName: "Product Walkthrough", status: "final-check", priority: "high", difficulty: 3, assignedTo: "sarah", reviewDate: "2026-04-11", deadlineDate: "2026-04-14", avatars: ["SJ"], startDate: "2026-03-18", score: 7 },
+  { id: "qa3", referenceCode: "ACR-02", clientName: "Accrual", contactName: "Onboarding Sequence", status: "final-check", priority: "low", difficulty: 1, assignedTo: "sarah", reviewDate: "2026-04-10", avatars: ["SJ"], startDate: "2026-03-30", score: 9 },
+];
+
 export const bountyBoard: Campaign[] = [
   { id: "b1", referenceCode: "STR-01", clientName: "Stripe", contactName: "Rachel Kim (VP Marketing)", status: "backlog", priority: "low", difficulty: 2, reviewDate: "2026-04-25", avatars: [] },
   { id: "b2", referenceCode: "NTN-01", clientName: "Notion", contactName: "Tyler Nguyen (Head of Growth)", status: "backlog", priority: "low", difficulty: 1, reviewDate: "2026-04-28", avatars: [] },
