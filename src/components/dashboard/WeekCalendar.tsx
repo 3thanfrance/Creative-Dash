@@ -20,29 +20,29 @@ export function WeekCalendar() {
   const iso = (d: Date) => d.toISOString().split("T")[0];
 
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
-      <h2 className="text-lg font-semibold text-foreground mb-3">5-Day Outlook</h2>
-      <div className="grid grid-cols-5 gap-2">
+    <div className="rounded-xl border border-border bg-card p-3">
+      <h2 className="text-sm font-semibold text-foreground mb-2">5-Day Outlook</h2>
+      <div className="grid grid-cols-5 gap-1.5">
         {days.map((day, i) => {
           const events = calendarEvents.filter((e) => e.date === iso(day));
           const isToday = i === 0;
           return (
             <div
               key={i}
-              className={`rounded-lg p-3 min-h-[100px] ${
-                isToday ? "bg-accent border-2 border-primary" : "bg-secondary"
+              className={`rounded-md p-2 min-h-[70px] ${
+                isToday ? "bg-accent border border-primary" : "bg-secondary/60"
               }`}
             >
-              <p className={`text-xs font-medium mb-2 ${isToday ? "text-primary" : "text-muted-foreground"}`}>
+              <p className={`text-[10px] font-medium mb-1.5 ${isToday ? "text-primary" : "text-muted-foreground"}`}>
                 {fmt(day)}
               </p>
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 {events.map((ev) => (
                   <div
                     key={ev.id}
-                    className={`${priorityBarColor[ev.priority]} rounded-md px-2 py-1.5 text-xs font-medium text-primary-foreground flex items-center gap-1.5`}
+                    className={`${priorityBarColor[ev.priority]} rounded px-1.5 py-1 text-[10px] font-medium text-primary-foreground truncate`}
                   >
-                    <span className="truncate">{ev.clientName}</span>
+                    {ev.clientName}
                   </div>
                 ))}
               </div>
