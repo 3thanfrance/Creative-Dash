@@ -1,5 +1,5 @@
-import { campaigns, bountyBoard } from "@/data/mockData";
-import { AlertTriangle, CheckCircle, AlertCircle, Activity, Users } from "lucide-react";
+import { campaigns } from "@/data/mockData";
+import { AlertTriangle, CheckCircle, AlertCircle, Activity } from "lucide-react";
 
 const REPS = 5; // team size excluding "all"
 const RED_THRESHOLD = 10; // per rep
@@ -13,7 +13,6 @@ export function OpsWorkload() {
   const weightedScore = counts[1] * 1 + counts[2] * 2 + counts[3] * 3;
   const maxScore = total * 3;
   const loadPct = maxScore > 0 ? Math.round((weightedScore / maxScore) * 100) : 0;
-  const unassignedCount = bountyBoard.length;
 
   let alertLevel: "green" | "yellow" | "red";
   let alertLabel: string;
@@ -47,12 +46,6 @@ export function OpsWorkload() {
           <span className="text-xs font-semibold text-foreground">Ops Workload</span>
         </div>
         <div className="flex items-center gap-3">
-          {unassignedCount > 0 && (
-            <div className="flex items-center gap-1 bg-priority-high/10 px-2 py-0.5 rounded-full">
-              <Users className="w-3 h-3 text-priority-high" />
-              <span className="text-[9px] font-bold text-priority-high">{unassignedCount} UNASSIGNED</span>
-            </div>
-          )}
           <div className="flex items-center gap-1.5">
             <AlertIcon className={`w-3.5 h-3.5 ${colors.icon}`} />
             <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${colors.badge}`}>
