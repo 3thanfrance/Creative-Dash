@@ -3,7 +3,6 @@ import { LayoutDashboard, Calendar, Users } from "lucide-react";
 import { WeekCalendar } from "@/components/dashboard/WeekCalendar";
 import { PriorityBuckets } from "@/components/dashboard/PriorityBuckets";
 import { BountyBoard } from "@/components/dashboard/BountyBoard";
-import { OpsWorkload } from "@/components/dashboard/OpsWorkload";
 import { CalendarView } from "@/components/dashboard/CalendarView";
 import { ClientsView } from "@/components/dashboard/ClientsView";
 import { PersonalAnalytics } from "@/components/dashboard/PersonalAnalytics";
@@ -45,15 +44,12 @@ export default function Index() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+      <main className="max-w-7xl mx-auto px-4 py-4 space-y-3">
         {activeTab === "dashboard" && (
           <>
             <WeekCalendar />
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <BountyBoard />
-              <OpsWorkload />
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <BountyBoard />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
               <div className="lg:col-span-2">
                 <PriorityBuckets />
               </div>
