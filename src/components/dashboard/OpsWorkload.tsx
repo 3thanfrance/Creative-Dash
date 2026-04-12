@@ -15,19 +15,20 @@ export function OpsWorkload() {
   ];
 
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
-      <div className="flex items-center gap-2 mb-3">
-        <Settings className="w-5 h-5 text-primary" />
-        <h2 className="text-lg font-semibold text-foreground">Ops Workload</h2>
+    <div className="rounded-xl border border-border bg-card p-3">
+      <div className="flex items-center gap-2 mb-2">
+        <Settings className="w-4 h-4 text-primary" />
+        <h2 className="text-sm font-semibold text-foreground">Ops Workload</h2>
+        <span className="ml-auto text-xs font-bold text-foreground">{total} total</span>
       </div>
-      <div className="space-y-3">
+      <div className="space-y-2">
         {bars.map((b) => (
           <div key={b.level}>
-            <div className="flex justify-between text-xs mb-1">
+            <div className="flex justify-between text-[10px] mb-0.5">
               <span className="text-muted-foreground font-medium">Grade {b.level} — {b.label}</span>
               <span className="font-semibold text-foreground">{b.count}</span>
             </div>
-            <div className="h-2.5 rounded-full bg-secondary overflow-hidden">
+            <div className="h-2 rounded-full bg-secondary overflow-hidden">
               <div
                 className={`h-full rounded-full ${b.color} transition-all`}
                 style={{ width: `${total > 0 ? (b.count / total) * 100 : 0}%` }}
@@ -35,10 +36,6 @@ export function OpsWorkload() {
             </div>
           </div>
         ))}
-      </div>
-      <div className="mt-3 pt-3 border-t border-border flex justify-between text-sm">
-        <span className="text-muted-foreground">Total in Ops</span>
-        <span className="font-bold text-foreground">{total}</span>
       </div>
     </div>
   );
