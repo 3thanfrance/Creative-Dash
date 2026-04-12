@@ -16,7 +16,8 @@ export function BountyBoard() {
               key={c.id}
               className="bg-card rounded px-2 py-1 border border-border hover:border-primary/50 transition-colors cursor-pointer shrink-0 flex items-center gap-1.5"
             >
-              <span className="text-[10px] font-semibold text-foreground">{c.contactName.split(" ").slice(0, 2).join(" ")}</span>
+              <span className="text-[8px] font-mono text-muted-foreground">{c.referenceCode}</span>
+              <span className="text-[10px] font-semibold text-foreground">{c.contactName.split("(")[0].trim()}</span>
               <span className={`text-[7px] px-1 py-0.5 rounded font-medium ${
                 c.priority === "medium" ? "bg-priority-medium text-foreground" : "bg-priority-low text-primary-foreground"
               }`}>
