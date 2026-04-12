@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { campaigns, teamMembers, clients, statusColors, type Campaign, type Priority } from "@/data/mockData";
+import { campaigns, teamMembers, bountyBoard, statusColors, type Campaign, type Priority } from "@/data/mockData";
 import { OpsWorkload } from "./OpsWorkload";
-import { Calendar, AlertCircle } from "lucide-react";
+import { Calendar, AlertCircle, Users } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -85,6 +85,12 @@ export function PriorityBuckets() {
       <div>
         <div className="flex items-center gap-2 mb-2 flex-wrap">
           <h2 className="text-sm font-semibold text-foreground">Priority Queue</h2>
+          {bountyBoard.length > 0 && (
+            <div className="flex items-center gap-1 bg-priority-high/10 px-2 py-0.5 rounded-full">
+              <Users className="w-3 h-3 text-priority-high" />
+              <span className="text-[9px] font-bold text-priority-high">{bountyBoard.length} UNASSIGNED</span>
+            </div>
+          )}
           <div className="flex items-center gap-2 ml-auto">
             <Select value={selectedClient} onValueChange={setSelectedClient}>
               <SelectTrigger className="w-[130px] h-7 text-xs bg-card">

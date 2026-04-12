@@ -1,19 +1,17 @@
 import { useState } from "react";
-import { LayoutDashboard, Users, User, Package } from "lucide-react";
+import { LayoutDashboard, Users, User } from "lucide-react";
 import { WeekCalendar } from "@/components/dashboard/WeekCalendar";
 import { PriorityBuckets } from "@/components/dashboard/PriorityBuckets";
 import { BountyBoard } from "@/components/dashboard/BountyBoard";
 import { CalendarView } from "@/components/dashboard/CalendarView";
 import { ClientsView } from "@/components/dashboard/ClientsView";
 import { PersonalAnalytics } from "@/components/dashboard/PersonalAnalytics";
-import { ProcurementView } from "@/components/dashboard/ProcurementView";
 
-type Tab = "dashboard" | "clients" | "me" | "procurement";
+type Tab = "dashboard" | "clients" | "me";
 
 const tabs: { key: Tab; label: string; icon: typeof LayoutDashboard }[] = [
   { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
   { key: "clients", label: "Clients", icon: Users },
-  { key: "procurement", label: "Procurement", icon: Package },
   { key: "me", label: "Me", icon: User },
 ];
 
@@ -62,7 +60,6 @@ export default function Index() {
           </>
         )}
         {activeTab === "clients" && <ClientsView />}
-        {activeTab === "procurement" && <ProcurementView />}
         {activeTab === "me" && <PersonalAnalytics />}
       </main>
     </div>

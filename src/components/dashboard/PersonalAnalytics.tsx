@@ -1,4 +1,4 @@
-import { completedCampaigns, campaigns, bountyBoard, finalQACampaigns, clients } from "@/data/mockData";
+import { completedCampaigns, campaigns, finalQACampaigns, clients } from "@/data/mockData";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { TrendingUp, Target, Clock, DollarSign, Star, CheckCircle, ClipboardCheck, Calendar } from "lucide-react";
 
@@ -67,7 +67,6 @@ export function PersonalAnalytics() {
   ];
 
   const myActive = campaigns.filter((c) => c.assignedTo === "sarah");
-  const availableBounties = bountyBoard;
 
   return (
     <div className="space-y-4">
@@ -211,32 +210,6 @@ export function PersonalAnalytics() {
           </div>
         </div>
 
-        {/* Available Bounties */}
-        <div className="rounded-xl border border-dashed border-primary/30 bg-card p-4">
-          <h3 className="text-sm font-semibold text-foreground mb-2">
-            Available Bounties <span className="text-muted-foreground font-normal">({availableBounties.length})</span>
-          </h3>
-          <div className="space-y-1.5">
-            {availableBounties.map((c) => (
-              <div key={c.id} className="flex items-center justify-between bg-accent/30 rounded-lg px-3 py-2 cursor-pointer hover:bg-accent/60 transition-colors">
-                <div className="flex items-center gap-2">
-                  <span className="text-[8px] font-mono font-bold text-muted-foreground bg-background px-1 py-0.5 rounded">
-                    {c.referenceCode}
-                  </span>
-                  <div>
-                    <p className="text-xs font-semibold text-foreground">{c.contactName.split("(")[0].trim()}</p>
-                    <p className="text-[10px] text-muted-foreground">{c.clientName}</p>
-                  </div>
-                </div>
-                <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded ${
-                  c.priority === "medium" ? "bg-priority-medium text-foreground" : "bg-priority-low text-primary-foreground"
-                }`}>
-                  D{c.difficulty}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
