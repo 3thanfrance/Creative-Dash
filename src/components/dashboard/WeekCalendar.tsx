@@ -1,4 +1,5 @@
 import { calendarEvents } from "@/data/mockData";
+import { Maximize2 } from "lucide-react";
 
 const priorityBarColor: Record<string, string> = {
   high: "bg-priority-high",
@@ -6,7 +7,7 @@ const priorityBarColor: Record<string, string> = {
   low: "bg-priority-low",
 };
 
-export function WeekCalendar() {
+export function WeekCalendar({ onExpand }: { onExpand?: () => void }) {
   const today = new Date("2026-04-13");
   const days = Array.from({ length: 5 }, (_, i) => {
     const d = new Date(today);
@@ -20,8 +21,16 @@ export function WeekCalendar() {
   const iso = (d: Date) => d.toISOString().split("T")[0];
 
   return (
-    <div className="rounded-xl border border-border bg-card p-3">
-      <h2 className="text-sm font-semibold text-foreground mb-2">5-Day Outlook</h2>
+    <div
+      className="rounded-xl border border-border bg-card p-3 cursor-pointer hover:border-primary/40 transition-colors"
+      onClick={onExpand}
+    >
+      <div className="flex items-center justify-between mb-2">
+        <h2 className="text-sm font-semibold text-foreground">5-Day Outlook</h2>
+        {onExpand && (
+          <Maximize2 className="w-3.5 h-3.5 text-muted-foreground" />
+        )}
+      </div>
       <div className="grid grid-cols-5 gap-1.5">
         {days.map((day, i) => {
           const events = calendarEvents.filter((e) => e.date === iso(day));

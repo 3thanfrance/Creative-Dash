@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LayoutDashboard, Calendar, Users } from "lucide-react";
+import { LayoutDashboard, Users, User } from "lucide-react";
 import { WeekCalendar } from "@/components/dashboard/WeekCalendar";
 import { PriorityBuckets } from "@/components/dashboard/PriorityBuckets";
 import { BountyBoard } from "@/components/dashboard/BountyBoard";
@@ -7,16 +7,17 @@ import { CalendarView } from "@/components/dashboard/CalendarView";
 import { ClientsView } from "@/components/dashboard/ClientsView";
 import { PersonalAnalytics } from "@/components/dashboard/PersonalAnalytics";
 
-type Tab = "dashboard" | "calendar" | "clients";
+type Tab = "dashboard" | "clients" | "me";
 
 const tabs: { key: Tab; label: string; icon: typeof LayoutDashboard }[] = [
   { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { key: "calendar", label: "Calendar", icon: Calendar },
   { key: "clients", label: "Clients", icon: Users },
+  { key: "me", label: "Me", icon: User },
 ];
 
 export default function Index() {
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
+  const [calendarExpanded, setCalendarExpanded] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -29,7 +30,7 @@ export default function Index() {
             {tabs.map((tab) => (
               <button
                 key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
+                onClick={() => { setActiveTab(tab.key); setCalendarExpanded(false); }}
                 className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
                   activeTab === tab.key
                     ? "gradient-primary text-primary-foreground shadow-sm"
@@ -47,18 +48,19 @@ export default function Index() {
       <main className="max-w-7xl mx-auto px-4 py-4 space-y-3">
         {activeTab === "dashboard" && (
           <>
-            <WeekCalendar />
-            <BountyBoard />
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-              <div className="lg:col-span-2">
+            {calendarExpanded ? (
+              <CalendarView onBack={() => setCalendarExpanded(false)} />
+            ) : (
+              <>
+                <WeekCalendar onExpand={() => setCalendarExpanded(true)} />
+                <BountyBoard />
                 <PriorityBuckets />
-              </div>
-              <PersonalAnalytics />
-            </div>
+              </>
+            )}
           </>
         )}
-        {activeTab === "calendar" && <CalendarView />}
         {activeTab === "clients" && <ClientsView />}
+        {activeTab === "me" && <PersonalAnalytics />}
       </main>
     </div>
   );
