@@ -83,8 +83,52 @@ export function PersonalAnalytics() {
           </div>
         ))}
       </div>
+      {/* Final QA Section */}
+      {finalQACampaigns.length > 0 && (
+        <div className="rounded-xl border border-[hsl(210,60%,70%)]/30 bg-[hsl(210,60%,95%)]/10 p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <ClipboardCheck className="w-4 h-4 text-[hsl(210,60%,55%)]" />
+            <h3 className="text-sm font-semibold text-foreground">Final QA</h3>
+            <span className="text-[10px] text-muted-foreground">Submitted — awaiting acceptance</span>
+            <span className="text-[10px] font-bold text-[hsl(210,60%,55%)] bg-[hsl(210,60%,90%)]/30 px-1.5 py-0.5 rounded-full ml-auto">
+              {finalQACampaigns.length}
+            </span>
+          </div>
+          <div className="grid gap-1.5">
+            {finalQACampaigns.map((c) => (
+              <div key={c.id} className="flex items-center justify-between bg-card rounded-lg px-3 py-2 border border-border">
+                <div className="flex items-center gap-2">
+                  <span className="text-[8px] font-mono font-bold text-muted-foreground bg-secondary px-1 py-0.5 rounded">
+                    {c.referenceCode}
+                  </span>
+                  <div>
+                    <p className="text-xs font-semibold text-foreground">{c.clientName}</p>
+                    <p className="text-[10px] text-muted-foreground">{c.contactName}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  {c.deadlineDate && (
+                    <div className="flex items-center gap-1 text-[9px] text-muted-foreground">
+                      <Calendar className="w-2.5 h-2.5" />
+                      <span>{new Date(c.deadlineDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+                    </div>
+                  )}
+                  <span className="text-[9px] text-muted-foreground">
+                    Submitted {new Date(c.reviewDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                  </span>
+                  <div className="flex items-center gap-0.5">
+                    {[1, 2, 3].map((i) => (
+                      <span key={i} className={`w-1.5 h-1.5 rounded-full ${i <= c.difficulty ? "bg-foreground" : "bg-border"}`} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+
         {/* Client Distribution */}
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-semibold text-foreground mb-2">Client Distribution</h3>
