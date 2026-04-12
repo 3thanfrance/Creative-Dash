@@ -50,11 +50,11 @@ export default function Index() {
         {activeTab === "dashboard" && (
           <>
             <WeekCalendar />
-            <PriorityBuckets />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <BountyBoard />
               <OpsWorkload />
             </div>
+            <PriorityBuckets />
           </>
         )}
         {activeTab === "calendar" && <CalendarView />}
