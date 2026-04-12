@@ -10,14 +10,17 @@ export interface Campaign {
   priority: Priority;
   difficulty: CampaignDifficulty;
   assignedTo?: string;
-  reviewDate: string; // ISO date
-  avatars: string[]; // initials
+  reviewDate: string;
+  avatars: string[];
+  completedDate?: string; // ISO date if completed
+  score?: number; // 1-10 campaign quality score
+  startDate?: string; // ISO date
 }
 
 export interface ClientDetails {
   id: string;
   name: string;
-  acceptanceRate: number; // 0-100
+  acceptanceRate: number;
   monthlyContractValue: number;
   totalContractValue: number;
   campaignsCompleted: number;
@@ -43,15 +46,27 @@ export const teamMembers = [
 ];
 
 export const campaigns: Campaign[] = [
-  { id: "1", clientName: "MagicSchool", contactName: "Sarah Jenkins (Prospect)", status: "urgent", priority: "high", difficulty: 3, assignedTo: "sarah", reviewDate: "2026-04-13", avatars: ["DY", "SJ"] },
-  { id: "2", clientName: "Fermat", contactName: "Alex Chen (Prospect)", status: "blocker", priority: "high", difficulty: 2, assignedTo: "sarah", reviewDate: "2026-04-14", avatars: ["HA", "AC"] },
-  { id: "3", clientName: "MagicSchool", contactName: "Michael Brown (Prospect)", status: "review", priority: "high", difficulty: 1, assignedTo: "michael", reviewDate: "2026-04-14", avatars: ["DY", "MB"] },
-  { id: "4", clientName: "Accrual", contactName: "Emily Davis (Prospect)", status: "in-progress", priority: "medium", difficulty: 2, assignedTo: "emily", reviewDate: "2026-04-16", avatars: ["HA", "ED"] },
-  { id: "5", clientName: "Omni", contactName: "Chris Wilson (Prospect)", status: "pending-info", priority: "medium", difficulty: 3, assignedTo: "chris", reviewDate: "2026-04-17", avatars: ["DY", "CW"] },
-  { id: "6", clientName: "Ashby", contactName: "Jessica Lee (Prospect)", status: "backlog", priority: "low", difficulty: 1, assignedTo: "emily", reviewDate: "2026-04-19", avatars: ["HA", "JL"] },
-  { id: "7", clientName: "Portless", contactName: "David Clark (Prospect)", status: "scheduled", priority: "low", difficulty: 2, assignedTo: "chris", reviewDate: "2026-04-20", avatars: ["DY", "DC"] },
-  { id: "8", clientName: "Rippling", contactName: "Q2 Launch Campaign", status: "ga-ready", priority: "low", difficulty: 3, assignedTo: "alex", reviewDate: "2026-04-18", avatars: ["DY"] },
-  { id: "9", clientName: "Fermat", contactName: "Website Redesign - Phase 1", status: "awaiting-feedback", priority: "low", difficulty: 2, assignedTo: "alex", reviewDate: "2026-04-21", avatars: ["HA"] },
+  { id: "1", clientName: "MagicSchool", contactName: "Sarah Jenkins (Prospect)", status: "urgent", priority: "high", difficulty: 3, assignedTo: "sarah", reviewDate: "2026-04-13", avatars: ["DY", "SJ"], startDate: "2026-03-20", score: 8 },
+  { id: "2", clientName: "Fermat", contactName: "Alex Chen (Prospect)", status: "blocker", priority: "high", difficulty: 2, assignedTo: "sarah", reviewDate: "2026-04-14", avatars: ["HA", "AC"], startDate: "2026-03-25", score: 7 },
+  { id: "3", clientName: "MagicSchool", contactName: "Michael Brown (Prospect)", status: "review", priority: "high", difficulty: 1, assignedTo: "michael", reviewDate: "2026-04-14", avatars: ["DY", "MB"], startDate: "2026-04-01", score: 9 },
+  { id: "4", clientName: "Accrual", contactName: "Emily Davis (Prospect)", status: "in-progress", priority: "medium", difficulty: 2, assignedTo: "emily", reviewDate: "2026-04-16", avatars: ["HA", "ED"], startDate: "2026-03-28" },
+  { id: "5", clientName: "Omni", contactName: "Chris Wilson (Prospect)", status: "pending-info", priority: "medium", difficulty: 3, assignedTo: "chris", reviewDate: "2026-04-17", avatars: ["DY", "CW"], startDate: "2026-04-02" },
+  { id: "6", clientName: "Ashby", contactName: "Jessica Lee (Prospect)", status: "backlog", priority: "low", difficulty: 1, assignedTo: "emily", reviewDate: "2026-04-19", avatars: ["HA", "JL"], startDate: "2026-04-05" },
+  { id: "7", clientName: "Portless", contactName: "David Clark (Prospect)", status: "scheduled", priority: "low", difficulty: 2, assignedTo: "chris", reviewDate: "2026-04-20", avatars: ["DY", "DC"], startDate: "2026-04-06" },
+  { id: "8", clientName: "Rippling", contactName: "Q2 Launch Campaign", status: "ga-ready", priority: "low", difficulty: 3, assignedTo: "alex", reviewDate: "2026-04-18", avatars: ["DY"], startDate: "2026-03-15", score: 6 },
+  { id: "9", clientName: "Fermat", contactName: "Website Redesign - Phase 1", status: "awaiting-feedback", priority: "low", difficulty: 2, assignedTo: "alex", reviewDate: "2026-04-21", avatars: ["HA"], startDate: "2026-04-01" },
+];
+
+// Completed campaigns for personal analytics (mock historical data for "sarah")
+export const completedCampaigns: Campaign[] = [
+  { id: "h1", clientName: "MagicSchool", contactName: "Spring Push", status: "review", priority: "low", difficulty: 2, assignedTo: "sarah", reviewDate: "2026-03-01", avatars: ["SJ"], completedDate: "2026-03-05", score: 8, startDate: "2026-02-15" },
+  { id: "h2", clientName: "Fermat", contactName: "Brand Awareness", status: "review", priority: "medium", difficulty: 3, assignedTo: "sarah", reviewDate: "2026-03-10", avatars: ["SJ"], completedDate: "2026-03-12", score: 7, startDate: "2026-02-20" },
+  { id: "h3", clientName: "Accrual", contactName: "Launch Video", status: "review", priority: "low", difficulty: 1, assignedTo: "sarah", reviewDate: "2026-02-20", avatars: ["SJ"], completedDate: "2026-02-22", score: 9, startDate: "2026-02-10" },
+  { id: "h4", clientName: "MagicSchool", contactName: "Winter Campaign", status: "review", priority: "high", difficulty: 2, assignedTo: "sarah", reviewDate: "2026-02-01", avatars: ["SJ"], completedDate: "2026-02-03", score: 8, startDate: "2026-01-15" },
+  { id: "h5", clientName: "Omni", contactName: "Product Demo", status: "review", priority: "medium", difficulty: 1, assignedTo: "sarah", reviewDate: "2026-01-15", avatars: ["SJ"], completedDate: "2026-01-18", score: 6, startDate: "2026-01-05" },
+  { id: "h6", clientName: "Ashby", contactName: "Hiring Campaign", status: "review", priority: "low", difficulty: 2, assignedTo: "sarah", reviewDate: "2026-03-20", avatars: ["SJ"], completedDate: "2026-03-22", score: 9, startDate: "2026-03-08" },
+  { id: "h7", clientName: "Fermat", contactName: "SEO Push", status: "review", priority: "medium", difficulty: 3, assignedTo: "sarah", reviewDate: "2026-01-28", avatars: ["SJ"], completedDate: "2026-02-01", score: 7, startDate: "2026-01-10" },
+  { id: "h8", clientName: "MagicSchool", contactName: "App Launch", status: "review", priority: "high", difficulty: 3, assignedTo: "sarah", reviewDate: "2026-03-28", avatars: ["SJ"], completedDate: "2026-03-30", score: 8, startDate: "2026-03-10" },
 ];
 
 export const bountyBoard: Campaign[] = [

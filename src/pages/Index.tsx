@@ -6,6 +6,7 @@ import { BountyBoard } from "@/components/dashboard/BountyBoard";
 import { OpsWorkload } from "@/components/dashboard/OpsWorkload";
 import { CalendarView } from "@/components/dashboard/CalendarView";
 import { ClientsView } from "@/components/dashboard/ClientsView";
+import { PersonalAnalytics } from "@/components/dashboard/PersonalAnalytics";
 
 type Tab = "dashboard" | "calendar" | "clients";
 
@@ -20,7 +21,6 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="border-b border-border bg-card">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <h1 className="text-xl font-bold gradient-hero bg-clip-text text-transparent">
@@ -45,7 +45,6 @@ export default function Index() {
         </div>
       </header>
 
-      {/* Content */}
       <main className="max-w-7xl mx-auto px-4 py-6 space-y-6">
         {activeTab === "dashboard" && (
           <>
@@ -54,7 +53,12 @@ export default function Index() {
               <BountyBoard />
               <OpsWorkload />
             </div>
-            <PriorityBuckets />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div className="lg:col-span-2">
+                <PriorityBuckets />
+              </div>
+              <PersonalAnalytics />
+            </div>
           </>
         )}
         {activeTab === "calendar" && <CalendarView />}
