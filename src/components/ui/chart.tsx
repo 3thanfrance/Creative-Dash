@@ -111,7 +111,8 @@ const ChartTooltipContent = React.forwardRef<
       labelKey,
     }: {
       active?: boolean;
-      payload?: Array<Record<string, unknown>>;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      payload?: any[];
       className?: string;
       indicator?: "line" | "dot" | "dashed";
       hideLabel?: boolean;
