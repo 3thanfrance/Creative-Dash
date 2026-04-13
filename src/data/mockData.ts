@@ -50,6 +50,7 @@ export interface CalendarEvent {
   id: string;
   clientName: string;
   date: string;
+  time?: string;
   priority: Priority;
   type: "meeting" | "deadline" | "review";
 }
@@ -121,16 +122,16 @@ export const procurementItems: ProcurementItem[] = [
 ];
 
 export const calendarEvents: CalendarEvent[] = [
-  { id: "e1", clientName: "MagicSchool", date: "2026-04-13", priority: "high", type: "meeting" },
-  { id: "e2", clientName: "Fermat", date: "2026-04-13", priority: "high", type: "review" },
-  { id: "e3", clientName: "Accrual", date: "2026-04-14", priority: "medium", type: "meeting" },
-  { id: "e4", clientName: "Omni", date: "2026-04-15", priority: "medium", type: "meeting" },
-  { id: "e5", clientName: "Rippling", date: "2026-04-17", priority: "low", type: "deadline" },
-  { id: "e6", clientName: "Ashby", date: "2026-04-16", priority: "low", type: "meeting" },
-  { id: "e7", clientName: "Portless", date: "2026-04-18", priority: "low", type: "review" },
-  { id: "e8", clientName: "MagicSchool", date: "2026-04-20", priority: "medium", type: "meeting" },
-  { id: "e9", clientName: "Fermat", date: "2026-04-22", priority: "low", type: "deadline" },
-  { id: "e10", clientName: "Stripe", date: "2026-04-25", priority: "low", type: "meeting" },
+  { id: "e1", clientName: "MagicSchool", date: "2026-04-13", time: "9:00 AM", priority: "high", type: "meeting" },
+  { id: "e2", clientName: "Fermat", date: "2026-04-13", time: "2:30 PM", priority: "high", type: "review" },
+  { id: "e3", clientName: "Accrual", date: "2026-04-14", time: "10:00 AM", priority: "medium", type: "meeting" },
+  { id: "e4", clientName: "Omni", date: "2026-04-15", time: "11:30 AM", priority: "medium", type: "meeting" },
+  { id: "e5", clientName: "Rippling", date: "2026-04-17", time: "5:00 PM", priority: "low", type: "deadline" },
+  { id: "e6", clientName: "Ashby", date: "2026-04-16", time: "1:00 PM", priority: "low", type: "meeting" },
+  { id: "e7", clientName: "Portless", date: "2026-04-18", time: "3:00 PM", priority: "low", type: "review" },
+  { id: "e8", clientName: "MagicSchool", date: "2026-04-20", time: "10:30 AM", priority: "medium", type: "meeting" },
+  { id: "e9", clientName: "Fermat", date: "2026-04-22", time: "4:00 PM", priority: "low", type: "deadline" },
+  { id: "e10", clientName: "Stripe", date: "2026-04-25", time: "9:30 AM", priority: "low", type: "meeting" },
 ];
 
 export const statusColors: Record<CampaignStatus, { bg: string; text: string }> = {
