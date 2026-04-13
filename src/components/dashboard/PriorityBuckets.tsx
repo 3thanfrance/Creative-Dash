@@ -67,14 +67,16 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
   );
 }
 
-export function PriorityBuckets() {
-  const [selectedMember, setSelectedMember] = useState("all");
+export function PriorityBuckets({ claimedBounties = [] }: { claimedBounties?: Campaign[] }) {
+  const [selectedMember, setSelectedMember] = useState("me");
   const [selectedClient, setSelectedClient] = useState("all");
 
   const uniqueClients = ["all", ...new Set(campaigns.map((c) => c.clientName))];
 
-  const filtered = campaigns.filter((c) => {
-    const memberMatch = selectedMember === "all" || c.assignedTo === selectedMember;
+  const allCampaigns = [...campaigns, ...claimedBounties];
+
+  const filtered = allCampaigns.filter((c) => {
+    const memberMatch = selectedMember === "all" || selectedMember === "me" ? (selectedMember === "all" || c.assignedTo === "sarah") : c.assignedTo === selectedMember;
     const clientMatch = selectedClient === "all" || c.clientName === selectedClient;
     return memberMatch && clientMatch;
   });
@@ -107,6 +109,7 @@ export function PriorityBuckets() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="me">Me</SelectItem>
                 {teamMembers.map((m) => (
                   <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>
                 ))}

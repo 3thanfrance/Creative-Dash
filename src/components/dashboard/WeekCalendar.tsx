@@ -49,9 +49,12 @@ export function WeekCalendar({ onExpand }: { onExpand?: () => void }) {
                 {events.map((ev) => (
                   <div
                     key={ev.id}
-                    className={`${priorityBarColor[ev.priority]} rounded px-1.5 py-1 text-[10px] font-medium text-primary-foreground truncate`}
+                    className={`${priorityBarColor[ev.priority]} rounded px-1.5 py-1 text-[10px] font-medium text-primary-foreground`}
                   >
-                    {ev.clientName}
+                    <span className="truncate block">{ev.clientName}</span>
+                    {ev.time && (
+                      <span className="text-[8px] opacity-80 block">{ev.time}</span>
+                    )}
                   </div>
                 ))}
               </div>
