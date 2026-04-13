@@ -67,10 +67,9 @@ function CampaignCard({ campaign }: { campaign: Campaign }) {
   );
 }
 
-export function PriorityBuckets() {
+export function PriorityBuckets({ claimedBounties = [] }: { claimedBounties?: Campaign[] }) {
   const [selectedMember, setSelectedMember] = useState("me");
   const [selectedClient, setSelectedClient] = useState("all");
-  const [claimedBounties, setClaimedBounties] = useState<Campaign[]>([]);
 
   const uniqueClients = ["all", ...new Set(campaigns.map((c) => c.clientName))];
 
@@ -81,10 +80,6 @@ export function PriorityBuckets() {
     const clientMatch = selectedClient === "all" || c.clientName === selectedClient;
     return memberMatch && clientMatch;
   });
-
-  const handleClaimBounty = (campaign: Campaign) => {
-    setClaimedBounties((prev) => [...prev, { ...campaign, assignedTo: "sarah", priority: "medium" }]);
-  };
 
   return (
     <div className="space-y-3">
