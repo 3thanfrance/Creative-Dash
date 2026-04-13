@@ -6,6 +6,7 @@ import { BountyBoard } from "@/components/dashboard/BountyBoard";
 import { CalendarView } from "@/components/dashboard/CalendarView";
 import { ClientsView } from "@/components/dashboard/ClientsView";
 import { PersonalAnalytics } from "@/components/dashboard/PersonalAnalytics";
+import { type Campaign } from "@/data/mockData";
 
 type Tab = "dashboard" | "clients" | "me";
 
@@ -18,6 +19,11 @@ const tabs: { key: Tab; label: string; icon: typeof LayoutDashboard }[] = [
 export default function Index() {
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [calendarExpanded, setCalendarExpanded] = useState(false);
+  const [claimedBounties, setClaimedBounties] = useState<Campaign[]>([]);
+
+  const handleClaimBounty = (campaign: Campaign) => {
+    setClaimedBounties((prev) => [...prev, { ...campaign, assignedTo: "sarah", priority: "medium" }]);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -53,8 +59,8 @@ export default function Index() {
             ) : (
               <>
                 <WeekCalendar onExpand={() => setCalendarExpanded(true)} />
-                <BountyBoard />
-                <PriorityBuckets />
+                <BountyBoard onClaim={handleClaimBounty} />
+                <PriorityBuckets claimedBounties={claimedBounties} />
               </>
             )}
           </>
