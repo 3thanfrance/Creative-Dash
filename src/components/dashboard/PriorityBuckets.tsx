@@ -114,6 +114,7 @@ export function PriorityBuckets() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="me">Me</SelectItem>
                 {teamMembers.map((m) => (
                   <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>
                 ))}
